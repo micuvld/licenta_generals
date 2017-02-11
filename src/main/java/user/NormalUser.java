@@ -5,11 +5,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import utils.PropertyLoader;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by vlad on 28.11.2016.
@@ -21,6 +25,7 @@ public class NormalUser extends User {
     public NormalUser(Entry entry) {
         this.entry = entry;
     }
+
 
     @Override
     public List getPatients() {
@@ -98,4 +103,6 @@ public class NormalUser extends User {
 
         return "No gateway found";
     }
+
+
 }
