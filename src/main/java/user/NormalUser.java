@@ -104,5 +104,27 @@ public class NormalUser extends User {
         return "No gateway found";
     }
 
+    public boolean requestAccessForPacient(String patientDn) {
+        Client client = ClientBuilder.newClient();
+        JSONParser parser = new JSONParser();
+
+        String entity = client.target("http://localhost:18080/SecurityProvider")
+                .path("access")
+                .queryParam("requesterDn", distinguishedName)
+                .queryParam("patientDn", patientDn)
+                .request()
+                .get(String.class);
+
+        System.out.println(entity);
+
+        try {
+            JSONObject gateway = (JSONObject)parser.parse(entity);
+            return gateway.get("status") == AuthenticationStatus.APPROVED.ordinal() + "";
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 }
